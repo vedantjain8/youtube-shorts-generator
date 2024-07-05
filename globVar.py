@@ -1,17 +1,20 @@
 import uuid
 
+
 def generateNewFolderName():
     return str(uuid.uuid4())
 
+
 folderName = str(uuid.uuid4())
-elevenapi_key =  'ELEVENLABS_API_KEY_HERE'
+# elevenapi_key = 'ELEVENLABS_API_KEY_HERE'
 
 pexels_api_key = "PEXELS_API_KEY_HERE"
 
-voice_artists = ["Marcus", "Bruce", "Chill"]
+voice_artists = ["en-US-BrianNeural", "en-US-AndrewNeural"]
 # Select one or more voice artists from the elevenlabs and enter the name as you have save it with on elevenlabs
 
 magickPath = r"assets/magick"
+
 
 class bcolors:
     HEADER = '\033[95m'

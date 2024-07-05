@@ -1,7 +1,7 @@
 import os
 import globVar
-from getQuoteListFromAI import getQuoteListFromAI, cleanTextOut
-from audio import generateAudio
+from getQuoteListFromAI import cleanTextOut
+from audio import generateAudioEdgeTTS as generateAudio
 from pexelsVideoDownload import SearchVideo
 from subtitle import stableTranscribe
 from generateVideo import generate_video, audioLength
@@ -9,11 +9,12 @@ from hashFun import check_hash, write_hash
 
 # https://github.com/vedantjain8/youtube-shorts-generator
 
+
 def createNewFolder():
 
     # create output directory
     globVar.folderName = globVar.generateNewFolderName()
-    
+
     os.makedirs("output", exist_ok=True)
     os.makedirs("assets", exist_ok=True)
     os.makedirs("assets/music", exist_ok=True)
@@ -30,17 +31,11 @@ if __name__ == "__main__":
     # Generate text
 
     while True:
-        topicPreference = input("Enter your prompt: ")
-
-        if (topicPreference == "exit"):
-            break
-        topic = None if topicPreference == "" else topicPreference
 
         print(globVar.bcolors.HEADER + globVar.bcolors.BOLD +
               "Generating text..." + globVar.bcolors.ENDC)
 
-        fact, keyword = cleanTextOut(getQuoteListFromAI(
-            topic=topic))
+        fact, keyword = cleanTextOut(input("Enter GPT output text: "))
 
         if (check_hash(fact)):
             continue
@@ -50,7 +45,7 @@ if __name__ == "__main__":
         response = input("Continue? (y/n): ").lower()
         if response == "n":
             continue
-        elif response == "y":
+        else:
             createNewFolder()
 
             with open(f"output/{globVar.folderName}/GPToutput.txt", 'w') as f:
@@ -87,5 +82,4 @@ if __name__ == "__main__":
             # generate a appropriate title
             print(globVar.bcolors.HEADER + globVar.bcolors.BOLD +
                   "Generating Title..." + globVar.bcolors.ENDC)
-        else:
-            break
+            

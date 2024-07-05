@@ -3,17 +3,25 @@ import globVar
 from elevenlabs import save
 from elevenlabs.client import ElevenLabs
 from os import path
+import edge_tts
 
 
-def generateAudio(inputText):
-    '''This function generates the audio clip using the ElevenLabs API. 
+def generateAudioEdgeTTS(inputText) -> None:
+    communicate = edge_tts.Communicate(
+        inputText, random.choice(globVar.voice_artists))
+    communicate.save_sync(
+        path.join('output', globVar.folderName, 'audio', "audio.mp3"))
 
-    Args:
-        inputText (str): The text to be converted to speech.
-    
-    '''
+
+# def generateAudio(inputText):
+#     '''This function generates the audio clip using the ElevenLabs API. 
+
+#     Args:
+#         inputText (str): The text to be converted to speech.
+
+#     '''
     # DONT USE THIS COMMENTED CODE OR THERE IS A CHANCE OF GETTING YOUR ELEVENLABS API ACCOUNT SUSPENDED
-    
+
     # tokenIndex = 0
     # while len(globVar.elevenapi_key) > tokenIndex:
     #     currentApiKey = globVar.elevenapi_key[tokenIndex]
@@ -31,14 +39,13 @@ def generateAudio(inputText):
     #                 f"{bcolors.FAIL}{bcolors.BOLD}All API keys have been exhausted, please try again later{bcolors.ENDC}")
     #             break
     #         tokenIndex += 1
-    generateAuidoClip(inputText=inputText, apiKey=globVar.elevenapi_key)
-
+    # generateAuidoClip(inputText=inputText, apiKey=globVar.elevenapi_key)
 
 
 def generateAuidoClip(inputText, apiKey):
     '''
     This function generates the audio clip using the ElevenLabs API. And save it to the audio file.
-    
+
     Args:
         inputText (str): The text to be converted to speech.
         apiKey (str): The API key to be used for the conversion.
